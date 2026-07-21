@@ -1,0 +1,10 @@
+# This file is managed by Copier. Do not edit it manually.
+_src_path: ../python_package_template
+author_email: wew@fgcz.ethz.ch
+author_name: Witold Wolski
+description: Typed peptide-to-protein matching and parsimonious protein inference
+distribution_name: prozor
+license_spdx: GPL-3.0-only
+package_name: prozor
+project_name: Prozor
+python_min: '3.12'

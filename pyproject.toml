@@ -1,0 +1,105 @@
+[build-system]
+requires = ["uv_build>=0.9.26,<0.10.0"]
+build-backend = "uv_build"
+
+[project]
+name = "prozor"
+version = "0.1.0"
+description = "Typed peptide-to-protein matching and parsimonious protein inference"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "GPL-3.0-only"
+authors = [
+    { name = "Witold Wolski", email = "wew@fgcz.ethz.ch" },
+]
+dependencies = [
+    "ahocorapy>=1.6,<2",
+    "numpy>=1.26",
+    "scipy>=1.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/anndata-omics-bridge/prozor"
+Repository = "https://github.com/anndata-omics-bridge/prozor.git"
+Issues = "https://github.com/anndata-omics-bridge/prozor/issues"
+
+[project.optional-dependencies]
+fast = [
+    "ahocorasick-rs>=1.0,<2",
+]
+
+[dependency-groups]
+dev = [
+    "ahocorasick-rs>=1.0,<2",
+    "build>=1.3,<2",
+    "deptry>=0.24,<1",
+    "pre-commit>=4,<5",
+    "pyright>=1.1.400,<2",
+    "pytest>=9,<10",
+    "pytest-cov>=7,<8",
+    "ruff>=0.15,<1",
+    "scipy-stubs>=1.18.0.1",
+    "twine>=6,<7",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "ANN",
+    "B",
+    "C4",
+    "C90",
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "I",
+    "PGH",
+    "PIE",
+    "RUF",
+    "SIM",
+    "UP",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.pyright]
+include = ["src", "tests"]
+stubPath = "typings"
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+reportImportCycles = "error"
+reportMissingTypeStubs = "error"
+reportUnnecessaryTypeIgnoreComment = "error"
+reportImplicitOverride = "error"
+enableTypeIgnoreComments = false
+
+[tool.pytest.ini_options]
+addopts = ["--strict-config", "--strict-markers", "-ra"]
+testpaths = ["tests"]
+xfail_strict = true
+
+[tool.coverage.run]
+branch = true
+source = ["prozor"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true
+
+[tool.deptry]
+known_first_party = ["prozor"]
