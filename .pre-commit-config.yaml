@@ -27,3 +27,9 @@ repos:
         language: system
         pass_filenames: false
         stages: [pre-push]
+      - id: mkdocs
+        name: MkDocs strict build
+        entry: .venv/bin/mkdocs build --strict
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
