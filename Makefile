@@ -1,7 +1,7 @@
 VENV_BIN := .venv/bin
 
 .DEFAULT_GOAL := help
-.PHONY: help sync format format-check lint typecheck deps test docs docs-serve build check clean
+.PHONY: help sync format format-check lint typecheck deps test docs docs-serve build carpets check clean
 
 help:  ## Show developer commands
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -38,6 +38,9 @@ docs-serve:  ## Serve documentation with live reload
 build:  ## Build and validate source and wheel distributions
 	uv build
 	$(VENV_BIN)/twine check dist/*
+
+carpets:  ## Report carpet diagnostics (never blocks; flags for triage, not verdicts)
+	$(VENV_BIN)/carpet-scan src --tests tests --html build/carpet-report.html
 
 check:  ## Run every merge-blocking quality gate
 	uv lock --check

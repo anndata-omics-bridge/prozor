@@ -14,6 +14,7 @@ The closest `AGENTS.md` wins. Explicit user instructions override this file.
 | Tests | `.venv/bin/pytest --cov --cov-branch` |
 | Documentation | `.venv/bin/mkdocs build --strict` |
 | Build | `uv build && .venv/bin/twine check dist/*` |
+| Carpet diagnostics | `make carpets` (report-only, never blocks) |
 | Full gate | `make check` |
 
 ## Code conventions

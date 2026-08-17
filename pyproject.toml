@@ -28,9 +28,16 @@ fast = [
     "ahocorasick-rs>=1.0,<2",
 ]
 
+[tool.uv.sources]
+# Workspace sibling until it is pushed, then a pinned git ref.
+carpet-scan = { path = "../carpet_scan" }
+
 [dependency-groups]
 dev = [
     "ahocorasick-rs>=1.0,<2",
+    # Carpet diagnostics. Must live in Prozor's own environment rather than an isolated `uvx` one,
+    # because grimp resolves the target package through the Python path.
+    "carpet-scan",
     "build>=1.3,<2",
     "deptry>=0.24,<1",
     "pre-commit>=4,<5",
