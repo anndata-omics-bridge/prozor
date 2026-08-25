@@ -1,7 +1,13 @@
 from __future__ import annotations
 
-from prozor.ahocorasick import get_available_backends
-from prozor.annotate import AnnotationResult, annotate_peptides, annotate_peptides_streaming
+import pytest
+
+from prozor.matching.annotation import (
+    AnnotationResult,
+    annotate_peptides,
+    annotate_peptides_streaming,
+)
+from prozor.matching.automaton import get_available_backends
 
 PROTEINS = {
     "sp|P12345|PROT1": "MKWVTFISLLFSSAYSRGVFRRDTHK",
@@ -17,10 +23,11 @@ def _records(result: AnnotationResult) -> set[tuple[str, str, int, int]]:
     }
 
 
-def test_annotation_matches_mapping_and_streaming_input() -> None:
+@pytest.mark.parametrize("backend", ["ahocorapy", "ahocorasick_rs"])
+def test_annotation_matches_mapping_and_streaming_input(backend: str) -> None:
     peptides = ["GVFRR", "DTHK", "UNIQUE"]
-    mapped = annotate_peptides(peptides, PROTEINS)
-    streamed = annotate_peptides_streaming(peptides, iter(PROTEINS.items()))
+    mapped = annotate_peptides(peptides, PROTEINS, backend=backend)
+    streamed = annotate_peptides_streaming(peptides, iter(PROTEINS.items()), backend=backend)
     assert _records(mapped) == _records(streamed)
 
 
@@ -37,12 +44,6 @@ def test_annotation_handles_empty_and_unmatched_patterns() -> None:
     assert len(unmatched) == 0
     assert empty.requested_backend == "auto"
     assert empty.resolved_backend in get_available_backends()
-
-
-def test_annotation_reports_concrete_backend() -> None:
-    result = annotate_peptides(["GVFRR"], PROTEINS, backend="auto")
-    assert result.requested_backend == "auto"
-    assert result.resolved_backend in get_available_backends()
 
 
 def test_tryptic_filtering() -> None:

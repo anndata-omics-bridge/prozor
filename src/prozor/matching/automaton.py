@@ -134,7 +134,7 @@ def resolve_backend(backend: str = "auto") -> BackendName:
     if requested_backend == "ahocorasick_rs":
         if not _rust_available():
             raise ImportError(
-                "backend 'ahocorasick_rs' requires the prozor[fast] optional dependency"
+                "backend 'ahocorasick_rs' requires a working ahocorasick-rs installation"
             )
         return "ahocorasick_rs"
     if requested_backend == "ahocorapy":

@@ -1,0 +1,118 @@
+{
+  "commit": "cfaee2ee930640bea7987420d73865352c11069e",
+  "label": "before",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "prozor": "0.1.0",
+  "python": "3.13.9",
+  "repetitions": 3,
+  "results": [
+    {
+      "case": "mostly_unique",
+      "edge_count": 3000,
+      "greedy": {
+        "median_seconds": 0.08298095897771418,
+        "seconds": [
+          0.08213450002949685,
+          0.08298095897771418,
+          0.08324158296454698
+        ]
+      },
+      "group_count": 600,
+      "implementation": "scipy_csr",
+      "incidence_build": {
+        "median_seconds": 0.0009099580347537994,
+        "seconds": [
+          0.0009530839743092656,
+          0.0009099580347537994,
+          0.000810125027783215
+        ]
+      },
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2291308,
+      "result_sha256": "fcd20054cc9259521baf4c7cf070ed9d8507e691ca901afd2018800ba544fb09",
+      "total_median_seconds": 0.08389091701246798
+    },
+    {
+      "case": "components_30x20",
+      "edge_count": 7800,
+      "greedy": {
+        "median_seconds": 0.0388405000558123,
+        "seconds": [
+          0.0388405000558123,
+          0.039432665915228426,
+          0.03803766693454236
+        ]
+      },
+      "group_count": 600,
+      "implementation": "scipy_csr",
+      "incidence_build": {
+        "median_seconds": 0.0015007079346105456,
+        "seconds": [
+          0.0016315829707309604,
+          0.0014705000212416053,
+          0.0015007079346105456
+        ]
+      },
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2126052,
+      "result_sha256": "7499930a9452d2810a2f0362992293c6fdb94af20dc3d0b7a891f5319998b03e",
+      "total_median_seconds": 0.040341207990422845
+    },
+    {
+      "case": "dense_component",
+      "edge_count": 16300,
+      "greedy": {
+        "median_seconds": 0.03825687489006668,
+        "seconds": [
+          0.03825687489006668,
+          0.03849737497512251,
+          0.03787412494421005
+        ]
+      },
+      "group_count": 300,
+      "implementation": "scipy_csr",
+      "incidence_build": {
+        "median_seconds": 0.0023576660314574838,
+        "seconds": [
+          0.0023576660314574838,
+          0.002301582950167358,
+          0.002395290997810662
+        ]
+      },
+      "peptide_count": 2300,
+      "protein_count": 300,
+      "python_peak_bytes": 3309060,
+      "result_sha256": "59ad57123dcd5d3246063ecf7a88f1f4553ccd80f3a4a75eb9d1d630877343af",
+      "total_median_seconds": 0.04061454092152417
+    },
+    {
+      "case": "overlapping_ties",
+      "edge_count": 2000,
+      "greedy": {
+        "median_seconds": 0.1616143339779228,
+        "seconds": [
+          0.1616143339779228,
+          0.1608047920744866,
+          0.1625327499350533
+        ]
+      },
+      "group_count": 1000,
+      "implementation": "scipy_csr",
+      "incidence_build": {
+        "median_seconds": 0.0005769999697804451,
+        "seconds": [
+          0.0005709159886464477,
+          0.0005769999697804451,
+          0.000612083007581532
+        ]
+      },
+      "peptide_count": 1500,
+      "protein_count": 1000,
+      "python_peak_bytes": 1526948,
+      "result_sha256": "54eca19a60422fdb4aad30962af715eb57db2170d38c2592d0b23280eea3b4c6",
+      "total_median_seconds": 0.16219133394770324
+    }
+  ]
+}

@@ -24,10 +24,15 @@ Three backend requests are accepted:
 | --- | --- |
 | `auto` | Use `ahocorasick_rs` when installed, otherwise `ahocorapy`. |
 | `ahocorapy` | Require the portable pure-Python backend. |
-| `ahocorasick_rs` | Require the optional Rust backend; raise `ImportError` if absent. |
+| `ahocorasick_rs` | Require the Rust backend; raise `ImportError` if unavailable. |
+
+All public matching operations default to `auto`. Both implementations are
+installed by Prozor, so a normal installation selects Rust. The pure-Python
+implementation remains an explicit choice and the fallback when Rust cannot be
+imported.
 
 ```python
-from prozor.annotate import annotate_peptides_streaming
+from prozor.matching.annotation import annotate_peptides_streaming
 
 result = annotate_peptides_streaming(
     ["PEPTIDE"],

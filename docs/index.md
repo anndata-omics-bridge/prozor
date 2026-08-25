@@ -7,7 +7,7 @@ It provides two connected building blocks:
 
 - backend-neutral Aho--Corasick matching over in-memory or streaming protein
   records; and
-- sparse peptide--protein topology with deterministic greedy-parsimony protein
+- unique peptide--protein edges with deterministic greedy-parsimony protein
   inference.
 
 [Get started](getting-started.md){ .md-button .md-button--primary }
@@ -20,7 +20,8 @@ It provides two connected building blocks:
 - **Streaming input:** protein records can be consumed from any one-pass
   iterable; Prozor does not prescribe a FASTA parser.
 - **Auditable backends:** results record both the requested backend and the
-  concrete implementation selected at runtime.
+  concrete implementation selected at runtime; Rust is the default and pure
+  Python remains the fallback.
 - **Deterministic inference:** equivalent protein groups and tie-breaking use a
   stable ordering.
 - **Small boundary:** the core does not depend on pandas, AnnData, MuData,
@@ -29,8 +30,8 @@ It provides two connected building blocks:
 ## Minimal workflow
 
 ```python
-from prozor.annotate import annotate_peptides_streaming
-from prozor.greedy import greedy_parsimony
+from prozor.inference.greedy import greedy_parsimony
+from prozor.matching.annotation import annotate_peptides_streaming
 
 matches = annotate_peptides_streaming(
     ["PEPTIDE", "SEQUENCE"],
@@ -40,7 +41,8 @@ matches = annotate_peptides_streaming(
     ],
 )
 
-protein_groups = greedy_parsimony(matches.to_sparse_matrix())
+edges = {(match.peptide, match.protein_id) for match in matches}
+protein_groups = greedy_parsimony(edges)
 print(protein_groups.to_dict())
 ```
 

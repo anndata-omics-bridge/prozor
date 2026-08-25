@@ -1,7 +1,7 @@
 VENV_BIN := .venv/bin
 
 .DEFAULT_GOAL := help
-.PHONY: help sync format format-check lint typecheck deps test docs docs-serve build carpets check clean
+.PHONY: help sync format format-check lint typecheck deps imports test docs docs-serve build carpets check clean
 
 help:  ## Show developer commands
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -10,21 +10,24 @@ help:  ## Show developer commands
 sync:  ## Synchronize the locked development environment
 	uv sync --frozen --group dev --group docs
 
-format:  ## Format and autofix source and tests
-	$(VENV_BIN)/ruff format src tests
-	$(VENV_BIN)/ruff check --fix src tests
+format:  ## Format and autofix source, tests, and benchmarks
+	$(VENV_BIN)/ruff format src tests benchmarks
+	$(VENV_BIN)/ruff check --fix src tests benchmarks
 
 format-check:  ## Check formatting without changing files
-	$(VENV_BIN)/ruff format --check src tests
+	$(VENV_BIN)/ruff format --check src tests benchmarks
 
 lint:  ## Run Ruff lint checks
-	$(VENV_BIN)/ruff check src tests
+	$(VENV_BIN)/ruff check src tests benchmarks
 
 typecheck:  ## Run standard Pyright in strict mode
 	$(VENV_BIN)/pyright
 
 deps:  ## Validate dependency declarations
 	$(VENV_BIN)/deptry .
+
+imports:  ## Enforce directed package boundaries
+	$(VENV_BIN)/lint-imports
 
 test:  ## Run tests with branch coverage
 	$(VENV_BIN)/pytest --cov --cov-branch
@@ -44,7 +47,7 @@ carpets:  ## Report carpet diagnostics (never blocks; flags for triage, not verd
 
 check:  ## Run every merge-blocking quality gate
 	uv lock --check
-	$(MAKE) format-check lint typecheck deps test docs build
+	$(MAKE) format-check lint typecheck deps imports test docs build
 
 clean:  ## Remove generated build and quality artifacts
 	$(VENV_BIN)/python -c "import shutil; [shutil.rmtree(path, ignore_errors=True) for path in ('build', 'dist', 'site', '.pytest_cache', '.ruff_cache')]"

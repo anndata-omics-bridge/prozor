@@ -1,0 +1,24 @@
+[importlinter]
+root_package = prozor
+include_external_packages = True
+
+[importlinter:contract:algorithm_families]
+name = Matching and inference are independent
+type = independence
+modules =
+    prozor.matching
+    prozor.inference
+
+[importlinter:contract:no_data_frameworks]
+name = Algorithm core does not import data and storage frameworks
+type = forbidden
+source_modules =
+    prozor
+forbidden_modules =
+    numpy
+    scipy
+    pydantic
+    pandas
+    polars
+    anndata
+    mudata

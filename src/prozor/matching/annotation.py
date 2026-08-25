@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
 
-from prozor.ahocorasick import BackendName, BackendRequest, create_automaton, resolve_backend
-
-if TYPE_CHECKING:
-    from prozor.sparse_matrix import PeptideProteinMatrix
+from prozor.matching.automaton import (
+    BackendName,
+    BackendRequest,
+    create_automaton,
+    resolve_backend,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,13 +78,6 @@ class AnnotationResult:
             resolved_backend=self.resolved_backend,
         )
 
-    def to_sparse_matrix(self, weighting: str = "binary") -> PeptideProteinMatrix:
-        """Build the sparse peptide--protein topology for these matches."""
-        from prozor.sparse_matrix import PeptideProteinMatrix
-
-        edges = ((annotation.peptide, annotation.protein_id) for annotation in self.annotations)
-        return PeptideProteinMatrix.from_edges(edges, weighting=weighting)
-
 
 def annotate_peptides(
     peptides: Iterable[str],
@@ -130,8 +124,6 @@ def annotate_peptides_streaming(
 
 
 def _requested_backend(backend: str) -> BackendRequest:
-    # resolve_backend provides the public runtime validation. The three branches
-    # below narrow the already-validated value for the type checker.
     resolve_backend(backend)
     if backend == "ahocorapy":
         return "ahocorapy"

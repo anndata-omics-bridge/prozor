@@ -1,55 +1,67 @@
 # Protein inference
 
-## Peptide--protein topology
+## Peptide--protein edges
 
-`PeptideProteinMatrix` represents peptides as rows and proteins as columns in a
-SciPy CSR matrix. Construct it directly from edges:
+Inference consumes ordinary `(peptide, protein)` string pairs. A set is the
+natural boundary between occurrence matching and topology: repeated sites and
+duplicate inputs collapse to one edge without constructing a numeric matrix.
 
 ```python
-from prozor.sparse_matrix import PeptideProteinMatrix
+from prozor.inference.greedy import greedy_parsimony
 
-matrix = PeptideProteinMatrix.from_edges(
-    [
-        ("PEP1", "P1"),
-        ("PEP1", "P2"),
-        ("PEP2", "P1"),
-    ]
-)
+edges = {
+    ("PEP1", "P1"),
+    ("PEP1", "P2"),
+    ("PEP2", "P1"),
+}
+result = greedy_parsimony(edges)
 ```
 
-Repeated occurrence sites collapse to one peptide--protein edge. Labels are
-sorted deterministically, and matrix shape is checked against the labels.
-
-Two weightings are available:
-
-| Weighting | Meaning |
-| --- | --- |
-| `binary` | Every observed peptide--protein edge has weight 1. |
-| `inverse` | Each peptide distributes total row weight 1 across its proteins. |
-
-Topology methods such as `proteins_per_peptide`, `peptides_per_protein`, and
-greedy inference count populated edges rather than summing weights. Inverse
-weighting therefore does not change group topology.
+Prozor needs only identity topology for parsimony. It therefore has no NumPy or
+SciPy dependency and does not assign numeric weights to edges.
 
 ## Greedy parsimony
 
-```python
-from prozor.greedy import greedy_parsimony
-
-result = greedy_parsimony(matrix, subsume=True)
-```
-
 At each iteration the algorithm:
 
-1. selects the active protein evidence covering the most active peptides;
-2. groups proteins with identical remaining peptide evidence;
-3. optionally includes proteins whose remaining evidence is a subset of the
-   selected evidence;
-4. assigns the covered peptides to that group; and
-5. removes the assigned evidence before the next iteration.
+1. finds the active protein evidence covering the most unexplained peptides;
+2. groups proteins with identical remaining evidence;
+3. separates independent candidates into disjoint overlap components;
+4. sends only overlapping, non-identical candidates to the tie resolver;
+5. optionally includes proteins whose remaining evidence is a subset of the
+   selected evidence; and
+6. assigns the covered peptides before continuing.
 
-Protein and peptide identifiers inside each group are sorted. Ties between
-candidate groups are resolved deterministically from their identifiers.
+Independent components are processed together. Final groups use the same
+stable ordering as the sequential algorithm: descending peptide count,
+descending protein-group size, then protein accession.
+
+## Three different equal-score situations
+
+- Proteins with identical evidence are one indistinguishable protein group;
+  they are not a tie to resolve.
+- Candidates with disjoint evidence are independent. Stable ordering is enough
+  because choosing either first cannot change the other.
+- Overlapping candidates with different evidence form a consequential tie.
+  Only this case reaches the injected `TieResolver`.
+
+```python
+from collections.abc import Sequence
+
+from prozor.inference.greedy import greedy_parsimony
+from prozor.inference.ties import TieCandidate
+
+
+def prefer_b(candidates: Sequence[TieCandidate]) -> TieCandidate:
+    return next(candidate for candidate in candidates if candidate.proteins == ("B",))
+
+
+result = greedy_parsimony(edges, resolve_tie=prefer_b)
+```
+
+The default preserves Prozor's deterministic group-size and accession rule.
+Sequence coverage, database scores, and quantitative correlation are promising
+experimental evidence, but are not silently applied by the production API.
 
 ## Subsumed proteins
 
@@ -58,7 +70,7 @@ selected group's peptide evidence is retained in that group. Set
 `subsume=False` to report only proteins with the winning evidence signature.
 
 ```python
-groups = greedy_parsimony(matrix, subsume=False)
+groups = greedy_parsimony(edges, subsume=False)
 peptide_to_group = groups.to_dict()
 ```
 

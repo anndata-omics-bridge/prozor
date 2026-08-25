@@ -7,10 +7,11 @@ The closest `AGENTS.md` wins. Explicit user instructions override this file.
 | Task | Command |
 | --- | --- |
 | Synchronize | `uv sync --frozen --group dev --group docs` |
-| Format | `.venv/bin/ruff format src tests && .venv/bin/ruff check --fix src tests` |
-| Lint | `.venv/bin/ruff check src tests` |
+| Format | `.venv/bin/ruff format src tests benchmarks && .venv/bin/ruff check --fix src tests benchmarks` |
+| Lint | `.venv/bin/ruff check src tests benchmarks` |
 | Typecheck | `.venv/bin/pyright` |
 | Dependencies | `.venv/bin/deptry .` |
+| Architecture | `.venv/bin/lint-imports` |
 | Tests | `.venv/bin/pytest --cov --cov-branch` |
 | Documentation | `.venv/bin/mkdocs build --strict` |
 | Build | `uv build && .venv/bin/twine check dist/*` |

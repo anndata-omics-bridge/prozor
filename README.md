@@ -9,8 +9,8 @@ Typed peptide-to-protein matching and deterministic greedy-parsimony protein
 inference.
 
 Prozor offers backend-neutral Aho--Corasick matching over mappings or streaming
-protein records, occurrence-level annotations, sparse peptide--protein
-topology, and deterministic protein inference. The core deliberately does not
+protein records, occurrence-level annotations, unique peptide--protein edges,
+and deterministic protein inference. The core deliberately does not
 parse FASTA files or depend on pandas, AnnData, MuData, MuLink, workflow engines,
 or consumer CLIs.
 
@@ -28,21 +28,17 @@ Until the first package-index release, install from GitHub:
 python -m pip install "prozor @ git+https://github.com/anndata-omics-bridge/prozor.git"
 ```
 
-Install the optional Rust matcher with:
-
-```bash
-python -m pip install "prozor[fast] @ git+https://github.com/anndata-omics-bridge/prozor.git"
-```
-
-The portable `ahocorapy` backend is always available. With `backend="auto"`,
-Prozor prefers `ahocorasick_rs` when installed and records both the requested
-and concrete backend in the result.
+Both matching implementations are installed. The public matching operations
+default to `backend="auto"`, which selects `ahocorasick_rs`. The portable
+`ahocorapy` implementation remains directly selectable and is the automatic
+runtime fallback if Rust cannot be imported. Results record both the requested
+and concrete backend.
 
 ## Quick start
 
 ```python
-from prozor.annotate import annotate_peptides_streaming
-from prozor.greedy import greedy_parsimony
+from prozor.inference.greedy import greedy_parsimony
+from prozor.matching.annotation import annotate_peptides_streaming
 
 matches = annotate_peptides_streaming(
     ["PEPTIDE", "SEQUENCE"],
@@ -55,7 +51,8 @@ matches = annotate_peptides_streaming(
 for match in matches:
     print(match.peptide, match.protein_id, match.start, match.end)
 
-protein_groups = greedy_parsimony(matches.to_sparse_matrix())
+edges = {(match.peptide, match.protein_id) for match in matches}
+protein_groups = greedy_parsimony(edges)
 print(protein_groups.to_dict())
 ```
 

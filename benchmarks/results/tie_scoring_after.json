@@ -1,0 +1,285 @@
+{
+  "accuracy_on_known_truth": {
+    "current": {
+      "cases": 2,
+      "correct": 1
+    },
+    "external_score": {
+      "cases": 2,
+      "correct": 2
+    },
+    "inverse_degeneracy": {
+      "cases": 2,
+      "correct": 1
+    },
+    "sequence_coverage": {
+      "cases": 2,
+      "correct": 2
+    }
+  },
+  "quantitative_coherence": [
+    {
+      "case": "homogeneous_protein",
+      "clusters": [
+        [
+          "a1",
+          "a2",
+          "a3"
+        ]
+      ],
+      "interpretation": "One coherent cluster is consistent with one quantitative entity.",
+      "unique_anchors": {
+        "A": [
+          "a1",
+          "a2",
+          "a3"
+        ]
+      }
+    },
+    {
+      "case": "two_proteins_with_unique_support",
+      "clusters": [
+        [
+          "a_unique",
+          "shared"
+        ],
+        [
+          "b_unique"
+        ]
+      ],
+      "interpretation": "Unique anchors support two proteins; the shared peptide profile may reveal which signal dominates but is not needed to establish both.",
+      "unique_anchors": {
+        "A": [
+          "a_unique"
+        ],
+        "B": [
+          "b_unique"
+        ]
+      }
+    },
+    {
+      "case": "shared_cluster_with_b_anchor",
+      "clusters": [
+        [
+          "b_unique",
+          "p4",
+          "p5"
+        ],
+        [
+          "p1",
+          "p2",
+          "p3"
+        ]
+      ],
+      "interpretation": "The second cluster has a B-unique anchor, so it is evidence for B rather than merely heterogeneity within A.",
+      "unique_anchors": {
+        "A": [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "B": [
+          "b_unique"
+        ]
+      }
+    },
+    {
+      "case": "shared_cluster_without_b_anchor",
+      "clusters": [
+        [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        [
+          "p4",
+          "p5"
+        ]
+      ],
+      "interpretation": "Two clusters diagnose disagreement, but without a B-unique anchor they do not identify B; proteoforms or interference remain alternatives.",
+      "unique_anchors": {
+        "A": [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "B": []
+      }
+    },
+    {
+      "case": "one_protein_two_proteoforms",
+      "clusters": [
+        [
+          "form_1a",
+          "form_1b"
+        ],
+        [
+          "form_2a",
+          "form_2b"
+        ]
+      ],
+      "interpretation": "Two clusters can occur within one protein and therefore cannot alone prove a second protein assignment.",
+      "unique_anchors": {
+        "A": [
+          "form_1a",
+          "form_1b",
+          "form_2a",
+          "form_2b"
+        ]
+      }
+    },
+    {
+      "case": "technical_interference",
+      "clusters": [
+        [
+          "a1",
+          "a2"
+        ],
+        [
+          "interfered"
+        ]
+      ],
+      "interpretation": "An isolated incoherent peptide is a quality warning; it supplies no protein identity evidence.",
+      "unique_anchors": {
+        "A": [
+          "a1",
+          "a2",
+          "interfered"
+        ]
+      }
+    },
+    {
+      "case": "structured_missingness",
+      "clusters": [
+        [
+          "a1",
+          "a2",
+          "a3"
+        ]
+      ],
+      "interpretation": "Pairwise-complete correlation remains diagnostic, not assignment proof.",
+      "unique_anchors": {
+        "A": [
+          "a1",
+          "a2",
+          "a3"
+        ]
+      }
+    }
+  ],
+  "status": "exploratory; no production policy changed",
+  "tie_scoring": [
+    {
+      "case": "informative_unique_evidence",
+      "expected": [
+        "A"
+      ],
+      "selections": {
+        "current": [
+          "A"
+        ],
+        "external_score": [
+          "A"
+        ],
+        "inverse_degeneracy": [
+          "A"
+        ],
+        "sequence_coverage": [
+          "A"
+        ]
+      },
+      "single_peptide_dropout_stability": {
+        "current": {
+          "stable": 4,
+          "trials": 4
+        },
+        "external_score": {
+          "stable": 4,
+          "trials": 4
+        },
+        "inverse_degeneracy": {
+          "stable": 3,
+          "trials": 4
+        },
+        "sequence_coverage": {
+          "stable": 4,
+          "trials": 4
+        }
+      }
+    },
+    {
+      "case": "coverage_favors_b",
+      "expected": [
+        "B"
+      ],
+      "selections": {
+        "current": [
+          "A"
+        ],
+        "external_score": [
+          "B"
+        ],
+        "inverse_degeneracy": [
+          "A"
+        ],
+        "sequence_coverage": [
+          "B"
+        ]
+      },
+      "single_peptide_dropout_stability": {
+        "current": {
+          "stable": 4,
+          "trials": 4
+        },
+        "external_score": {
+          "stable": 4,
+          "trials": 4
+        },
+        "inverse_degeneracy": {
+          "stable": 2,
+          "trials": 4
+        },
+        "sequence_coverage": {
+          "stable": 4,
+          "trials": 4
+        }
+      }
+    },
+    {
+      "case": "deliberately_ambiguous",
+      "expected": null,
+      "selections": {
+        "current": [
+          "A"
+        ],
+        "external_score": [
+          "A"
+        ],
+        "inverse_degeneracy": [
+          "A"
+        ],
+        "sequence_coverage": [
+          "A"
+        ]
+      },
+      "single_peptide_dropout_stability": {
+        "current": {
+          "stable": 4,
+          "trials": 4
+        },
+        "external_score": {
+          "stable": 4,
+          "trials": 4
+        },
+        "inverse_degeneracy": {
+          "stable": 2,
+          "trials": 4
+        },
+        "sequence_coverage": {
+          "stable": 4,
+          "trials": 4
+        }
+      }
+    }
+  ]
+}

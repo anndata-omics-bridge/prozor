@@ -5,28 +5,28 @@ docstrings.
 
 ## Aho--Corasick matching
 
-::: prozor.ahocorasick
+::: prozor.matching.automaton
     options:
       filters:
         - "!^_"
 
 ## Peptide annotation
 
-::: prozor.annotate
+::: prozor.matching.annotation
     options:
       filters:
         - "!^_"
 
-## Sparse peptide--protein matrix
+## Tie resolution
 
-::: prozor.sparse_matrix
+::: prozor.inference.ties
     options:
       filters:
         - "!^_"
 
 ## Greedy protein inference
 
-::: prozor.greedy
+::: prozor.inference.greedy
     options:
       filters:
         - "!^_"

@@ -15,6 +15,7 @@ uv sync --group dev --group docs
 make format       # apply Ruff formatting and safe lint fixes
 make lint         # Ruff checks
 make typecheck    # standard Pyright strict
+make imports      # directed matching/inference boundary
 make test         # pytest with branch coverage
 make docs         # strict MkDocs build
 make build        # wheel/sdist plus metadata validation
@@ -31,6 +32,7 @@ sections, and `uv.lock` must be updated with dependency changes.
 - Keep public APIs minimal and import them from their defining modules.
 - Preserve nested and overlapping matches across both backends.
 - Keep ordering and protein inference deterministic.
+- Keep `matching/` and `inference/` independent; compose them in consumers.
 - Add focused tests for behavioral changes and run `make check` before review.
 
 See [`AGENTS.md`](https://github.com/anndata-omics-bridge/prozor/blob/main/AGENTS.md)

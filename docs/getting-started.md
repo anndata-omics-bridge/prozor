@@ -12,22 +12,18 @@ Until the first package-index release, install directly from GitHub:
 python -m pip install "prozor @ git+https://github.com/anndata-omics-bridge/prozor.git"
 ```
 
-The portable `ahocorapy` implementation is always installed. To also install
-the accelerated Rust backend:
-
-```bash
-python -m pip install "prozor[fast] @ git+https://github.com/anndata-omics-bridge/prozor.git"
-```
-
-Once released on a package index, the corresponding commands are
-`pip install prozor` and `pip install "prozor[fast]"`.
+Both the accelerated `ahocorasick_rs` implementation and the portable
+`ahocorapy` fallback are installed. Public matching operations default to
+`backend="auto"`: Rust is selected when importable, otherwise matching falls
+back to pure Python. Once released on a package index, install with
+`pip install prozor`.
 
 ## Match peptides against proteins
 
 Use a mapping when all proteins are already in memory:
 
 ```python
-from prozor.annotate import annotate_peptides
+from prozor.matching.annotation import annotate_peptides
 
 proteins = {
     "P1": "MYPEPTIDESEQUENCE",
@@ -39,13 +35,16 @@ for match in result:
     print(match.peptide, match.protein_id, match.start, match.end)
 ```
 
+The call above uses Rust by default. Pass `backend="ahocorapy"` to select the
+portable implementation explicitly.
+
 Use a one-pass iterable when a consumer already streams FASTA or database
 records:
 
 ```python
 from collections.abc import Iterator
 
-from prozor.annotate import annotate_peptides_streaming
+from prozor.matching.annotation import annotate_peptides_streaming
 
 
 def protein_records() -> Iterator[tuple[str, str]]:
@@ -67,18 +66,18 @@ result = annotate_peptides_streaming(
 
 ## Infer protein groups
 
-Convert occurrence-level matches to a deduplicated sparse topology and run
-greedy parsimony:
+Convert occurrence-level matches to unique peptide--protein edges and run
+greedy parsimony. Repeated sites collapse naturally in the set:
 
 ```python
-from prozor.greedy import greedy_parsimony
+from prozor.inference.greedy import greedy_parsimony
 
-matrix = result.to_sparse_matrix()
-inference = greedy_parsimony(matrix)
+edges = {(match.peptide, match.protein_id) for match in result}
+inference = greedy_parsimony(edges)
 
 for group in inference:
     print(group.protein_id, group.peptides)
 ```
 
-See [Protein inference](protein-inference.md) for weighting, grouping, and
+See [Protein inference](protein-inference.md) for grouping, tie resolution, and
 subsumption semantics.

@@ -1,5 +1,15 @@
 # Changes
 
+- 2026-08-25: Split the algorithm core into independent `matching/` and `inference/`
+  packages. Protein inference now consumes unique string edges directly; NumPy, SciPy, and
+  `scipy-stubs` are removed. Consequential overlapping ties use an injected resolver, while
+  identical evidence is grouped and disjoint components are processed independently. Reproducible
+  benchmarks compare both Aho--Corasick backends and three greedy implementations; the selected
+  integer-incidence implementation preserves all baseline result hashes and is faster than the
+  former SciPy path on every measured graph shape. Rust matching is now installed and selected by
+  default, while the pure-Python backend remains installed, explicitly selectable, and tested as the
+  fallback.
+
 - 2026-08-11: Add `make carpets`, running the sibling `carpet_scan` package over `src` and `tests`.
   Report-only and never blocking, matching this repo's Makefile idiom (`$(VENV_BIN)/carpet-scan`)
   rather than introducing a `manual` pre-commit stage this repo does not use. First run is **clean

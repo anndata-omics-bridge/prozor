@@ -1,0 +1,250 @@
+{
+  "commit": "cfaee2ee930640bea7987420d73865352c11069e",
+  "label": "after",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "prozor": "0.1.0",
+  "python": "3.13.9",
+  "repetitions": 3,
+  "results": [
+    {
+      "case": "mostly_unique",
+      "edge_count": 3000,
+      "genuine_tie_count": 0,
+      "group_count": 600,
+      "implementation": "direct_name_sets",
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2725248,
+      "result_sha256": "fcd20054cc9259521baf4c7cf070ed9d8507e691ca901afd2018800ba544fb09",
+      "round_count": 600,
+      "total": {
+        "median_seconds": 0.028257291996851563,
+        "seconds": [
+          0.028200709028169513,
+          0.028257291996851563,
+          0.029277499997988343
+        ]
+      }
+    },
+    {
+      "case": "mostly_unique",
+      "edge_count": 3000,
+      "genuine_tie_count": 0,
+      "group_count": 600,
+      "implementation": "integer_incremental",
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2878972,
+      "result_sha256": "fcd20054cc9259521baf4c7cf070ed9d8507e691ca901afd2018800ba544fb09",
+      "round_count": 600,
+      "total": {
+        "median_seconds": 0.005081458017230034,
+        "seconds": [
+          0.005081458017230034,
+          0.005128666991367936,
+          0.004991292022168636
+        ]
+      }
+    },
+    {
+      "case": "mostly_unique",
+      "edge_count": 3000,
+      "genuine_tie_count": 0,
+      "group_count": 600,
+      "implementation": "lazy_priority_queue",
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2782328,
+      "result_sha256": "fcd20054cc9259521baf4c7cf070ed9d8507e691ca901afd2018800ba544fb09",
+      "round_count": 600,
+      "total": {
+        "median_seconds": 0.02964175003580749,
+        "seconds": [
+          0.02964175003580749,
+          0.02955329103861004,
+          0.02973254199605435
+        ]
+      }
+    },
+    {
+      "case": "components_30x20",
+      "edge_count": 7800,
+      "genuine_tie_count": 140,
+      "group_count": 600,
+      "implementation": "direct_name_sets",
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2915312,
+      "result_sha256": "7499930a9452d2810a2f0362992293c6fdb94af20dc3d0b7a891f5319998b03e",
+      "round_count": 600,
+      "total": {
+        "median_seconds": 0.0401387499878183,
+        "seconds": [
+          0.0398760000243783,
+          0.042987416964024305,
+          0.0401387499878183
+        ]
+      }
+    },
+    {
+      "case": "components_30x20",
+      "edge_count": 7800,
+      "genuine_tie_count": 140,
+      "group_count": 600,
+      "implementation": "integer_incremental",
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 3093280,
+      "result_sha256": "7499930a9452d2810a2f0362992293c6fdb94af20dc3d0b7a891f5319998b03e",
+      "round_count": 600,
+      "total": {
+        "median_seconds": 0.00913237500935793,
+        "seconds": [
+          0.00922804104629904,
+          0.00913237500935793,
+          0.0090336250141263
+        ]
+      }
+    },
+    {
+      "case": "components_30x20",
+      "edge_count": 7800,
+      "genuine_tie_count": 140,
+      "group_count": 600,
+      "implementation": "lazy_priority_queue",
+      "peptide_count": 3000,
+      "protein_count": 600,
+      "python_peak_bytes": 2507464,
+      "result_sha256": "7499930a9452d2810a2f0362992293c6fdb94af20dc3d0b7a891f5319998b03e",
+      "round_count": 600,
+      "total": {
+        "median_seconds": 0.040323249995708466,
+        "seconds": [
+          0.04327495803590864,
+          0.039889666019007564,
+          0.040323249995708466
+        ]
+      }
+    },
+    {
+      "case": "dense_component",
+      "edge_count": 16300,
+      "genuine_tie_count": 30,
+      "group_count": 300,
+      "implementation": "direct_name_sets",
+      "peptide_count": 2300,
+      "protein_count": 300,
+      "python_peak_bytes": 4582216,
+      "result_sha256": "59ad57123dcd5d3246063ecf7a88f1f4553ccd80f3a4a75eb9d1d630877343af",
+      "round_count": 300,
+      "total": {
+        "median_seconds": 0.05075054208282381,
+        "seconds": [
+          0.05027945793699473,
+          0.05075054208282381,
+          0.053380291908979416
+        ]
+      }
+    },
+    {
+      "case": "dense_component",
+      "edge_count": 16300,
+      "genuine_tie_count": 30,
+      "group_count": 300,
+      "implementation": "integer_incremental",
+      "peptide_count": 2300,
+      "protein_count": 300,
+      "python_peak_bytes": 5173568,
+      "result_sha256": "59ad57123dcd5d3246063ecf7a88f1f4553ccd80f3a4a75eb9d1d630877343af",
+      "round_count": 300,
+      "total": {
+        "median_seconds": 0.02452916605398059,
+        "seconds": [
+          0.02414820797275752,
+          0.02452916605398059,
+          0.024604540900327265
+        ]
+      }
+    },
+    {
+      "case": "dense_component",
+      "edge_count": 16300,
+      "genuine_tie_count": 30,
+      "group_count": 300,
+      "implementation": "lazy_priority_queue",
+      "peptide_count": 2300,
+      "protein_count": 300,
+      "python_peak_bytes": 4582216,
+      "result_sha256": "59ad57123dcd5d3246063ecf7a88f1f4553ccd80f3a4a75eb9d1d630877343af",
+      "round_count": 300,
+      "total": {
+        "median_seconds": 0.04837833298370242,
+        "seconds": [
+          0.048557708971202374,
+          0.04790587490424514,
+          0.04837833298370242
+        ]
+      }
+    },
+    {
+      "case": "overlapping_ties",
+      "edge_count": 2000,
+      "genuine_tie_count": 500,
+      "group_count": 1000,
+      "implementation": "direct_name_sets",
+      "peptide_count": 1500,
+      "protein_count": 1000,
+      "python_peak_bytes": 1640336,
+      "result_sha256": "54eca19a60422fdb4aad30962af715eb57db2170d38c2592d0b23280eea3b4c6",
+      "round_count": 1000,
+      "total": {
+        "median_seconds": 0.04305395798292011,
+        "seconds": [
+          0.042175334063358605,
+          0.044577375054359436,
+          0.04305395798292011
+        ]
+      }
+    },
+    {
+      "case": "overlapping_ties",
+      "edge_count": 2000,
+      "genuine_tie_count": 500,
+      "group_count": 1000,
+      "implementation": "integer_incremental",
+      "peptide_count": 1500,
+      "protein_count": 1000,
+      "python_peak_bytes": 1852740,
+      "result_sha256": "54eca19a60422fdb4aad30962af715eb57db2170d38c2592d0b23280eea3b4c6",
+      "round_count": 1000,
+      "total": {
+        "median_seconds": 0.007770084077492356,
+        "seconds": [
+          0.007797416998073459,
+          0.007770084077492356,
+          0.007372833089902997
+        ]
+      }
+    },
+    {
+      "case": "overlapping_ties",
+      "edge_count": 2000,
+      "genuine_tie_count": 500,
+      "group_count": 1000,
+      "implementation": "lazy_priority_queue",
+      "peptide_count": 1500,
+      "protein_count": 1000,
+      "python_peak_bytes": 1739416,
+      "result_sha256": "54eca19a60422fdb4aad30962af715eb57db2170d38c2592d0b23280eea3b4c6",
+      "round_count": 1000,
+      "total": {
+        "median_seconds": 0.04434783407486975,
+        "seconds": [
+          0.045005416963249445,
+          0.04400770796928555,
+          0.04434783407486975
+        ]
+      }
+    }
+  ]
+}

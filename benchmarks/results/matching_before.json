@@ -1,0 +1,168 @@
+{
+  "ahocorapy": "1.7.0",
+  "ahocorasick_rs": "1.0.3",
+  "commit": "cfaee2ee930640bea7987420d73865352c11069e",
+  "label": "before",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "prozor": "0.1.0",
+  "python": "3.13.9",
+  "repetitions": 3,
+  "results": [
+    {
+      "backend": "ahocorapy",
+      "build": {
+        "median_seconds": 0.001446833019144833,
+        "seconds": [
+          0.0013057079631835222,
+          0.001446833019144833,
+          0.0014768339460715652
+        ]
+      },
+      "case": "sparse_128x100k",
+      "keyword_count": 128,
+      "match_count": 197,
+      "protein_count": 100,
+      "python_peak_bytes": 698208,
+      "residues": 100000,
+      "scan": {
+        "median_seconds": 0.006927457987330854,
+        "seconds": [
+          0.006927457987330854,
+          0.006880874978378415,
+          0.007018500007688999
+        ]
+      },
+      "scan_residues_per_second": 14435309.48623334
+    },
+    {
+      "backend": "ahocorasick_rs",
+      "build": {
+        "median_seconds": 8.958310354501009e-05,
+        "seconds": [
+          0.00010249996557831764,
+          8.958310354501009e-05,
+          7.97909451648593e-05
+        ]
+      },
+      "case": "sparse_128x100k",
+      "keyword_count": 128,
+      "match_count": 197,
+      "protein_count": 100,
+      "python_peak_bytes": 5688,
+      "residues": 100000,
+      "scan": {
+        "median_seconds": 0.0006816249806433916,
+        "seconds": [
+          0.0006816249806433916,
+          0.0006751249311491847,
+          0.0007275840034708381
+        ]
+      },
+      "scan_residues_per_second": 146708238.16581538
+    },
+    {
+      "backend": "ahocorapy",
+      "build": {
+        "median_seconds": 0.02040433301590383,
+        "seconds": [
+          0.020564041915349662,
+          0.02040433301590383,
+          0.019880542065948248
+        ]
+      },
+      "case": "sparse_1024x500k",
+      "keyword_count": 1024,
+      "match_count": 744,
+      "protein_count": 250,
+      "python_peak_bytes": 7081864,
+      "residues": 500000,
+      "scan": {
+        "median_seconds": 0.04378983401693404,
+        "seconds": [
+          0.04378983401693404,
+          0.042869708966463804,
+          0.044794791960157454
+        ]
+      },
+      "scan_residues_per_second": 11418175.273435477
+    },
+    {
+      "backend": "ahocorasick_rs",
+      "build": {
+        "median_seconds": 0.000622916966676712,
+        "seconds": [
+          0.000622916966676712,
+          0.0005935420049354434,
+          0.0006405831081792712
+        ]
+      },
+      "case": "sparse_1024x500k",
+      "keyword_count": 1024,
+      "match_count": 744,
+      "protein_count": 250,
+      "python_peak_bytes": 39808,
+      "residues": 500000,
+      "scan": {
+        "median_seconds": 0.0035770409740507603,
+        "seconds": [
+          0.0035214159870520234,
+          0.0035901250084862113,
+          0.0035770409740507603
+        ]
+      },
+      "scan_residues_per_second": 139780339.00846916
+    },
+    {
+      "backend": "ahocorapy",
+      "build": {
+        "median_seconds": 9.958050213754177e-06,
+        "seconds": [
+          9.875046089291573e-06,
+          2.1999934688210487e-05,
+          9.958050213754177e-06
+        ]
+      },
+      "case": "nested_overlap",
+      "keyword_count": 6,
+      "match_count": 31200,
+      "protein_count": 40,
+      "python_peak_bytes": 5040,
+      "residues": 7960,
+      "scan": {
+        "median_seconds": 0.0092237499775365,
+        "seconds": [
+          0.0092237499775365,
+          0.00938991701696068,
+          0.009212000062689185
+        ]
+      },
+      "scan_residues_per_second": 862989.5670834277
+    },
+    {
+      "backend": "ahocorasick_rs",
+      "build": {
+        "median_seconds": 1.4459015801548958e-05,
+        "seconds": [
+          2.4916953407227993e-05,
+          1.4459015801548958e-05,
+          1.2791948392987251e-05
+        ]
+      },
+      "case": "nested_overlap",
+      "keyword_count": 6,
+      "match_count": 31200,
+      "protein_count": 40,
+      "python_peak_bytes": 58120,
+      "residues": 7960,
+      "scan": {
+        "median_seconds": 0.007949249935336411,
+        "seconds": [
+          0.007715874933637679,
+          0.007949249935336411,
+          0.007964290911331773
+        ]
+      },
+      "scan_residues_per_second": 1001352.3369816066
+    }
+  ]
+}

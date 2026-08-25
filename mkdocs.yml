@@ -38,7 +38,8 @@ nav:
   - Guide:
       - Matching peptides: matching.md
       - Protein inference: protein-inference.md
-      - Design boundaries: design.md
+      - Architecture: architecture.md
+      - Benchmarks: benchmarks.md
   - API reference: api.md
   - Contributing: contributing.md
 
