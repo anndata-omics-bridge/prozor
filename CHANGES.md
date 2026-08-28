@@ -1,5 +1,11 @@
 # Changes
 
+- 2026-08-28: Relicensed from GPL-3.0-only to MIT. The Python package is an independent
+  implementation of the R `prozor` algorithm rather than a translation of its source, and the same
+  author holds copyright on both; the R package stays GPL-3. This removes the copyleft conflict with
+  MIT-licensed APB, which imports `prozor.matching`. Added the `LICENSE` file and declared
+  `license-files`, without which uv_build shipped wheels carrying no licence text.
+
 - 2026-08-25: Split the algorithm core into independent `matching/` and `inference/`
   packages. Protein inference now consumes unique string edges directly; NumPy, SciPy, and
   `scipy-stubs` are removed. Consequential overlapping ties use an injected resolver, while

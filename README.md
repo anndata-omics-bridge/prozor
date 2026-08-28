@@ -3,7 +3,7 @@
 [![Quality](https://github.com/anndata-omics-bridge/prozor/actions/workflows/quality.yml/badge.svg)](https://github.com/anndata-omics-bridge/prozor/actions/workflows/quality.yml)
 [![Documentation](https://github.com/anndata-omics-bridge/prozor/actions/workflows/docs.yml/badge.svg)](https://anndata-omics-bridge.github.io/prozor/)
 [![Python](https://img.shields.io/badge/Python-%E2%89%A53.12-3776AB.svg)](https://www.python.org/)
-[![License: GPL-3.0-only](https://img.shields.io/badge/License-GPL--3.0--only-blue.svg)](https://spdx.org/licenses/GPL-3.0-only.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT.html)
 
 Typed peptide-to-protein matching and deterministic greedy-parsimony protein
 inference.
@@ -80,5 +80,12 @@ Wolski's R [`prozor`](https://github.com/wolski/prozor) package and consolidates
 the matching and inference core for Python consumers such as APB and
 `diann_runner`.
 
-The Python distribution is licensed under GPL-3.0-only, matching the declared
-license of the R reference package.
+The Python distribution is an independent implementation of that algorithm
+rather than a translation of the R source, and it is licensed under MIT. The R
+reference package remains GPL-3, and its license does not extend here: the
+copyright holder of both packages is the same author, and algorithms are not
+themselves subject to copyright.
+
+MIT keeps the whole anndata-omics-bridge spine under one permissive license, so
+that consumers such as APB can be redistributed without inheriting copyleft
+obligations from this package.
