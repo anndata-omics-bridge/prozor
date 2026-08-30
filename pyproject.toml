@@ -24,8 +24,7 @@ Repository = "https://github.com/anndata-omics-bridge/prozor.git"
 Issues = "https://github.com/anndata-omics-bridge/prozor/issues"
 
 [tool.uv.sources]
-# Workspace sibling until it is pushed, then a pinned git ref.
-carpet-scan = { path = "../carpet_scan" }
+carpet-scan = { git = "https://github.com/anndata-omics-bridge/carpet_scan", rev = "a98f45d21884a95fa79b7660b153bbadb9268e03" }
 
 [dependency-groups]
 dev = [
