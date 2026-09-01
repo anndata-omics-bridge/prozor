@@ -49,7 +49,7 @@ jobs:
         run: uv sync --frozen --group docs
 
       - name: Build documentation
-        run: uv run --frozen --group docs mkdocs build --strict
+        run: uv run --frozen --group docs zensical build --clean --strict
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

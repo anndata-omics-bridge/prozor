@@ -33,10 +33,10 @@ test:  ## Run tests with branch coverage
 	$(VENV_BIN)/pytest --cov --cov-branch
 
 docs:  ## Build documentation and fail on warnings
-	$(VENV_BIN)/mkdocs build --strict
+	uv run --frozen --group docs zensical build --clean --strict
 
 docs-serve:  ## Serve documentation with live reload
-	$(VENV_BIN)/mkdocs serve
+	uv run --frozen --group docs zensical serve
 
 build:  ## Build and validate source and wheel distributions
 	uv build

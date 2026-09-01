@@ -13,7 +13,7 @@ The closest `AGENTS.md` wins. Explicit user instructions override this file.
 | Dependencies | `.venv/bin/deptry .` |
 | Architecture | `.venv/bin/lint-imports` |
 | Tests | `.venv/bin/pytest --cov --cov-branch` |
-| Documentation | `.venv/bin/mkdocs build --strict` |
+| Documentation | `uv run --frozen --group docs zensical build --clean --strict` |
 | Build | `uv build && .venv/bin/twine check dist/*` |
 | Carpet diagnostics | `make carpets` (report-only, never blocks) |
 | Full gate | `make check` |
@@ -30,7 +30,7 @@ The closest `AGENTS.md` wins. Explicit user instructions override this file.
 - Use Google-style docstrings for public APIs and the configured 100-character
   line length.
 - Keep user guides in `docs/`, API prose in public docstrings, and navigation in
-  `mkdocs.yml`; every documentation change must pass a strict MkDocs build.
+  `mkdocs.yml`; every documentation change must pass a strict Zensical build.
 
 ## Dependency rules
 
