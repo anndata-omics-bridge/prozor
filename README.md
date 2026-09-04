@@ -8,6 +8,8 @@
 Typed peptide-to-protein matching and deterministic greedy-parsimony protein
 inference.
 
+This repository is a Python port of the R [`prozor`](https://github.com/protViz/prozor) package.
+
 Prozor offers backend-neutral Aho--Corasick matching over mappings or streaming
 protein records, occurrence-level annotations, unique peptide--protein edges,
 and deterministic protein inference. The core deliberately does not
@@ -75,10 +77,7 @@ commands run from the synchronized project `.venv`.
 
 ## Provenance and license
 
-This implementation is derived from the algorithmic behavior of Witold
-Wolski's R [`prozor`](https://github.com/wolski/prozor) package and consolidates
-the matching and inference core for Python consumers such as APB and
-`diann_runner`.
+This implementation ports the algorithmic behavior of the R [`prozor`](https://github.com/protViz/prozor) package and consolidates the matching and inference core for Python consumers such as APB and `diann_runner`.
 
 The Python distribution is an independent implementation of that algorithm
 rather than a translation of the R source, and it is licensed under MIT. The R
