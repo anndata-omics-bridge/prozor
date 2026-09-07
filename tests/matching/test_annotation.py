@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+from collections.abc import Iterator
+from dataclasses import dataclass
+
 import pytest
 
 from prozor.matching.annotation import (
     AnnotationResult,
+    ProteinSequenceRecord,
     annotate_peptides,
     annotate_peptides_streaming,
 )
@@ -14,6 +18,17 @@ PROTEINS = {
     "sp|P67890|PROT2": "MRGVFRRDTHKSEQ",
     "sp|Q11111|PROT3": "MXXUNIQUESEQXXX",
 }
+
+
+@dataclass(frozen=True, slots=True)
+class _ProteinRecord:
+    id: str
+    sequence: str
+
+
+def _protein_records() -> Iterator[ProteinSequenceRecord]:
+    for protein_id, sequence in PROTEINS.items():
+        yield _ProteinRecord(id=protein_id, sequence=sequence)
 
 
 def _records(result: AnnotationResult) -> set[tuple[str, str, int, int]]:
@@ -27,7 +42,7 @@ def _records(result: AnnotationResult) -> set[tuple[str, str, int, int]]:
 def test_annotation_matches_mapping_and_streaming_input(backend: str) -> None:
     peptides = ["GVFRR", "DTHK", "UNIQUE"]
     mapped = annotate_peptides(peptides, PROTEINS, backend=backend)
-    streamed = annotate_peptides_streaming(peptides, iter(PROTEINS.items()), backend=backend)
+    streamed = annotate_peptides_streaming(peptides, _protein_records(), backend=backend)
     assert _records(mapped) == _records(streamed)
 
 

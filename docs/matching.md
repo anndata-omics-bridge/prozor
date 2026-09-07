@@ -32,11 +32,20 @@ implementation remains an explicit choice and the fallback when Rust cannot be
 imported.
 
 ```python
+from dataclasses import dataclass
+
 from prozor.matching.annotation import annotate_peptides_streaming
+
+
+@dataclass(frozen=True, slots=True)
+class Protein:
+    id: str
+    sequence: str
+
 
 result = annotate_peptides_streaming(
     ["PEPTIDE"],
-    [("P1", "MPEPTIDEX")],
+    [Protein("P1", "MPEPTIDEX")],
     backend="auto",
 )
 
@@ -56,10 +65,11 @@ case-insensitive matching while returning the original keyword spelling.
 
 ## Streaming contract
 
-`annotate_peptides_streaming` accepts an iterable of `(protein_id, sequence)`
-tuples. The iterable may be consumed only once, which allows direct integration
-with FASTA readers and database cursors. The resulting occurrence annotations
-are retained in memory.
+`annotate_peptides_streaming` accepts an iterable of records exposing string
+`id` and `sequence` attributes. The iterable may be consumed only once, which
+allows direct integration with FASTA readers and database cursors without
+making Prozor depend on their concrete record types. The resulting occurrence
+annotations are retained in memory.
 
 Prozor deliberately does not own:
 

@@ -30,14 +30,23 @@ It provides two connected building blocks:
 ## Minimal workflow
 
 ```python
+from dataclasses import dataclass
+
 from prozor.inference.greedy import greedy_parsimony
 from prozor.matching.annotation import annotate_peptides_streaming
+
+
+@dataclass(frozen=True, slots=True)
+class Protein:
+    id: str
+    sequence: str
+
 
 matches = annotate_peptides_streaming(
     ["PEPTIDE", "SEQUENCE"],
     [
-        ("P1", "MYPEPTIDESEQUENCE"),
-        ("P2", "XXSEQUENCEXX"),
+        Protein("P1", "MYPEPTIDESEQUENCE"),
+        Protein("P2", "XXSEQUENCEXX"),
     ],
 )
 

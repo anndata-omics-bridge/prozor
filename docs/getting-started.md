@@ -43,13 +43,20 @@ records:
 
 ```python
 from collections.abc import Iterator
+from dataclasses import dataclass
 
-from prozor.matching.annotation import annotate_peptides_streaming
+from prozor.matching.annotation import ProteinSequenceRecord, annotate_peptides_streaming
 
 
-def protein_records() -> Iterator[tuple[str, str]]:
-    yield "P1", "MYPEPTIDESEQUENCE"
-    yield "P2", "XXSEQUENCEXX"
+@dataclass(frozen=True, slots=True)
+class Protein:
+    id: str
+    sequence: str
+
+
+def protein_records() -> Iterator[ProteinSequenceRecord]:
+    yield Protein("P1", "MYPEPTIDESEQUENCE")
+    yield Protein("P2", "XXSEQUENCEXX")
 
 
 result = annotate_peptides_streaming(

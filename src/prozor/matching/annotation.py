@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
+from typing import Protocol
 
 from prozor.matching.automaton import (
     BackendName,
@@ -11,6 +12,28 @@ from prozor.matching.automaton import (
     create_automaton,
     resolve_backend,
 )
+
+
+class ProteinSequenceRecord(Protocol):
+    """Smallest protein-record capability required by peptide matching."""
+
+    @property
+    def id(self) -> str:
+        """Return the protein identifier attached to matching results."""
+        ...
+
+    @property
+    def sequence(self) -> str:
+        """Return the protein sequence to search."""
+        ...
+
+
+@dataclass(frozen=True, slots=True)
+class _MappingProteinRecord:
+    """Adapt one in-memory mapping entry to the streaming record boundary."""
+
+    id: str
+    sequence: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -86,16 +109,20 @@ def annotate_peptides(
     filter_tryptic: bool = False,
 ) -> AnnotationResult:
     """Annotate peptides against an in-memory protein mapping."""
-    result = annotate_peptides_streaming(peptides, proteins.items(), backend=backend)
+    records = (
+        _MappingProteinRecord(id=protein_id, sequence=sequence)
+        for protein_id, sequence in proteins.items()
+    )
+    result = annotate_peptides_streaming(peptides, records, backend=backend)
     return result.filter_tryptic(proteins) if filter_tryptic else result
 
 
 def annotate_peptides_streaming(
     peptides: Iterable[str],
-    protein_records: Iterable[tuple[str, str]],
+    protein_records: Iterable[ProteinSequenceRecord],
     backend: str = "auto",
 ) -> AnnotationResult:
-    """Annotate peptides against one-pass ``(protein_id, sequence)`` records."""
+    """Annotate peptides against one-pass records exposing ``id`` and ``sequence``."""
     peptide_list = list(dict.fromkeys(peptides))
     if not peptide_list:
         return AnnotationResult(
@@ -106,15 +133,15 @@ def annotate_peptides_streaming(
 
     automaton = create_automaton(peptide_list, backend=backend)
     annotations: list[PeptideAnnotation] = []
-    for protein_id, sequence in protein_records:
+    for record in protein_records:
         annotations.extend(
             PeptideAnnotation(
                 peptide=match.keyword,
-                protein_id=protein_id,
+                protein_id=record.id,
                 start=match.start,
                 end=match.end,
             )
-            for match in automaton.find_all(sequence)
+            for match in automaton.find_all(record.sequence)
         )
     return AnnotationResult(
         annotations=annotations,

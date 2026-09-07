@@ -6,6 +6,11 @@
   MIT-licensed APB, which imports `prozor.matching`. Added the `LICENSE` file and declared
   `license-files`, without which uv_build shipped wheels carrying no licence text.
 
+- 2026-08-27: Protein matching now consumes a client-owned structural `id`/`sequence` record
+  capability instead of tuple-shaped FASTA input. Streaming records and mapping input remain
+  separately named operations; the mapping path uses a private adapter. APB consumes the new
+  `prozor.matching` API from the authoritative local checkout.
+
 - 2026-08-25: Split the algorithm core into independent `matching/` and `inference/`
   packages. Protein inference now consumes unique string edges directly; NumPy, SciPy, and
   `scipy-stubs` are removed. Consequential overlapping ties use an injected resolver, while
