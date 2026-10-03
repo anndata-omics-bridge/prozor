@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Iterator, Mapping
+from bisect import bisect_right
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass
+from itertools import accumulate, islice
 from typing import Protocol
 
 from prozor.matching.automaton import (
@@ -12,6 +14,9 @@ from prozor.matching.automaton import (
     create_automaton,
     resolve_backend,
 )
+
+_SEPARATOR = "\n"
+_BATCH_SIZE = 10_000
 
 
 class ProteinSequenceRecord(Protocol):
@@ -26,14 +31,6 @@ class ProteinSequenceRecord(Protocol):
     def sequence(self) -> str:
         """Return the protein sequence to search."""
         ...
-
-
-@dataclass(frozen=True, slots=True)
-class _MappingProteinRecord:
-    """Adapt one in-memory mapping entry to the streaming record boundary."""
-
-    id: str
-    sequence: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -109,11 +106,7 @@ def annotate_peptides(
     filter_tryptic: bool = False,
 ) -> AnnotationResult:
     """Annotate peptides against an in-memory protein mapping."""
-    records = (
-        _MappingProteinRecord(id=protein_id, sequence=sequence)
-        for protein_id, sequence in proteins.items()
-    )
-    result = annotate_peptides_streaming(peptides, records, backend=backend)
+    result = _annotate(peptides, [(tuple(proteins), tuple(proteins.values()))], backend)
     return result.filter_tryptic(proteins) if filter_tryptic else result
 
 
@@ -123,6 +116,19 @@ def annotate_peptides_streaming(
     backend: str = "auto",
 ) -> AnnotationResult:
     """Annotate peptides against one-pass records exposing ``id`` and ``sequence``."""
+    records = iter(protein_records)
+    batches = (
+        (tuple(record.id for record in batch), tuple(record.sequence for record in batch))
+        for batch in iter(lambda: tuple(islice(records, _BATCH_SIZE)), ())
+    )
+    return _annotate(peptides, batches, backend)
+
+
+def _annotate(
+    peptides: Iterable[str],
+    batches: Iterable[tuple[Sequence[str], Sequence[str]]],
+    backend: str,
+) -> AnnotationResult:
     peptide_list = list(dict.fromkeys(peptides))
     if not peptide_list:
         return AnnotationResult(
@@ -130,19 +136,22 @@ def annotate_peptides_streaming(
             requested_backend=_requested_backend(backend),
             resolved_backend=resolve_backend(backend),
         )
+    if any(_SEPARATOR in peptide for peptide in peptide_list):
+        raise ValueError("peptides must not contain line breaks")
 
     automaton = create_automaton(peptide_list, backend=backend)
     annotations: list[PeptideAnnotation] = []
-    for record in protein_records:
-        annotations.extend(
-            PeptideAnnotation(
-                peptide=match.keyword,
-                protein_id=record.id,
-                start=match.start,
-                end=match.end,
+    for ids, sequences in batches:
+        # One backend call per batch; the separator stops matches across sequences.
+        starts = list(accumulate((len(sequence) + 1 for sequence in sequences), initial=0))
+        for match in automaton.find_all(_SEPARATOR.join(sequences)):
+            index = bisect_right(starts, match.start) - 1
+            offset = starts[index]
+            annotations.append(
+                PeptideAnnotation(
+                    match.keyword, ids[index], match.start - offset, match.end - offset
+                )
             )
-            for match in automaton.find_all(record.sequence)
-        )
     return AnnotationResult(
         annotations=annotations,
         requested_backend=automaton.requested_backend,

@@ -11,7 +11,7 @@ from prozor.matching.annotation import (
     annotate_peptides,
     annotate_peptides_streaming,
 )
-from prozor.matching.automaton import get_available_backends
+from prozor.matching.automaton import create_automaton, get_available_backends
 
 PROTEINS = {
     "sp|P12345|PROT1": "MKWVTFISLLFSSAYSRGVFRRDTHK",
@@ -44,6 +44,24 @@ def test_annotation_matches_mapping_and_streaming_input(backend: str) -> None:
     mapped = annotate_peptides(peptides, PROTEINS, backend=backend)
     streamed = annotate_peptides_streaming(peptides, _protein_records(), backend=backend)
     assert _records(mapped) == _records(streamed)
+
+
+@pytest.mark.parametrize("backend", ["ahocorapy", "ahocorasick_rs"])
+def test_annotation_reports_positions_within_each_sequence(backend: str) -> None:
+    # THKMR spans the end of PROT1 and the start of PROT2 and must not match.
+    peptides = ["GVFRR", "DTHK", "MK", "XXX", "THKMR"]
+    expected = {
+        (match.keyword, protein_id, match.start, match.end)
+        for protein_id, sequence in PROTEINS.items()
+        for match in create_automaton(peptides, backend=backend).find_all(sequence)
+    }
+    assert _records(annotate_peptides(peptides, PROTEINS, backend=backend)) == expected
+    assert "THKMR" not in {peptide for peptide, *_ in expected}
+
+
+def test_annotation_rejects_peptides_with_line_breaks() -> None:
+    with pytest.raises(ValueError, match="line breaks"):
+        annotate_peptides(["PEP\nTIDE"], PROTEINS)
 
 
 def test_annotation_deduplicates_patterns_but_keeps_sites() -> None:
