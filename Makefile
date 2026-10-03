@@ -1,5 +1,8 @@
 VENV_BIN := .venv/bin
 
+DOCS_PORT ?= 8104
+SERVE_ON_PORT ?= $(wildcard $(HOME)/projects/bin/serve-on-port)
+
 .DEFAULT_GOAL := help
 .PHONY: help sync format format-check lint typecheck deps imports test docs docs-serve build carpets check clean
 
@@ -36,7 +39,7 @@ docs:  ## Build documentation and fail on warnings
 	uv run --frozen --group docs zensical build --clean --strict
 
 docs-serve:  ## Serve documentation with live reload
-	uv run --frozen --group docs zensical serve
+	SERVE_PORT=$(DOCS_PORT) $(SERVE_ON_PORT) uv run --frozen --group docs zensical serve -a localhost:$(DOCS_PORT)
 
 build:  ## Build and validate source and wheel distributions
 	uv build
