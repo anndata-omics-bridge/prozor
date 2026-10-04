@@ -13,6 +13,17 @@ license-files = ["LICENSE"]
 authors = [
     { name = "Witold Wolski", email = "wew@fgcz.ethz.ch" },
 ]
+keywords = ["proteomics", "protein inference", "peptide matching", "mass spectrometry"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Typing :: Typed",
+]
 dependencies = [
     "ahocorapy>=1.6,<2",
     "ahocorasick-rs>=1.0,<2",
@@ -20,6 +31,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/anndata-omics-bridge/prozor"
+Documentation = "https://anndata-omics-bridge.github.io/prozor/"
 Repository = "https://github.com/anndata-omics-bridge/prozor.git"
 Issues = "https://github.com/anndata-omics-bridge/prozor/issues"
 

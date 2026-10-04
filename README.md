@@ -24,10 +24,8 @@ Documentation: <https://anndata-omics-bridge.github.io/prozor/>
 
 ## Installation
 
-Until the first package-index release, install from GitHub:
-
 ```bash
-python -m pip install "prozor @ git+https://github.com/anndata-omics-bridge/prozor.git"
+python -m pip install prozor
 ```
 
 Both matching implementations are installed. The public matching operations
