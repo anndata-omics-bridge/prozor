@@ -1,5 +1,7 @@
 # Changes
 
+- 2026-10-04: `prozor.api` is the module other anndata_bridge packages import: `annotate_peptides`, `annotate_peptides_streaming`, `ProteinSequenceRecord`, `greedy_parsimony`, `TieCandidate`, `resolve_backend`. `greedy_parsimony` drops its `*` marker; every call that worked before still works.
+
 - 2026-08-28: Relicensed from GPL-3.0-only to MIT. The Python package is an independent
   implementation of the R `prozor` algorithm rather than a translation of its source, and the same
   author holds copyright on both; the R package stays GPL-3. This removes the copyleft conflict with

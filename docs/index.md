@@ -32,8 +32,7 @@ It provides two connected building blocks:
 ```python
 from dataclasses import dataclass
 
-from prozor.inference.greedy import greedy_parsimony
-from prozor.matching.annotation import annotate_peptides_streaming
+from prozor.api import annotate_peptides_streaming, greedy_parsimony
 
 
 @dataclass(frozen=True, slots=True)

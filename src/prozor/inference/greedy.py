@@ -77,7 +77,6 @@ class _Selection:
 
 def greedy_parsimony(
     edges: Iterable[PeptideProteinEdge],
-    *,
     resolve_tie: TieResolver = resolve_current_tie,
     subsume: bool = True,
 ) -> GreedyResult:

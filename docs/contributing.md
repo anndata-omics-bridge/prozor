@@ -29,7 +29,7 @@ sections, and `uv.lock` must be updated with dependency changes.
 ## Code expectations
 
 - Fully annotate source and tests; strict Pyright must remain at zero errors.
-- Keep public APIs minimal and import them from their defining modules.
+- Keep public APIs minimal. Other packages import them only from `prozor.api`; inside prozor, import from defining modules.
 - Preserve nested and overlapping matches across both backends.
 - Keep ordering and protein inference deterministic.
 - Keep `matching/` and `inference/` independent; compose them in consumers.

@@ -34,7 +34,7 @@ imported.
 ```python
 from dataclasses import dataclass
 
-from prozor.matching.annotation import annotate_peptides_streaming
+from prozor.api import annotate_peptides_streaming
 
 
 @dataclass(frozen=True, slots=True)

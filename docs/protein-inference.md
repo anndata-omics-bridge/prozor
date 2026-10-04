@@ -7,7 +7,7 @@ natural boundary between occurrence matching and topology: repeated sites and
 duplicate inputs collapse to one edge without constructing a numeric matrix.
 
 ```python
-from prozor.inference.greedy import greedy_parsimony
+from prozor.api import greedy_parsimony
 
 edges = {
     ("PEP1", "P1"),
@@ -48,8 +48,7 @@ descending protein-group size, then protein accession.
 ```python
 from collections.abc import Sequence
 
-from prozor.inference.greedy import greedy_parsimony
-from prozor.inference.ties import TieCandidate
+from prozor.api import TieCandidate, greedy_parsimony
 
 
 def prefer_b(candidates: Sequence[TieCandidate]) -> TieCandidate:

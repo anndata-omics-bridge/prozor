@@ -45,7 +45,7 @@ records:
 from collections.abc import Iterator
 from dataclasses import dataclass
 
-from prozor.matching.annotation import ProteinSequenceRecord, annotate_peptides_streaming
+from prozor.api import ProteinSequenceRecord, annotate_peptides_streaming
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,7 +77,7 @@ Convert occurrence-level matches to unique peptide--protein edges and run
 greedy parsimony. Repeated sites collapse naturally in the set:
 
 ```python
-from prozor.inference.greedy import greedy_parsimony
+from prozor.api import greedy_parsimony
 
 edges = {(match.peptide, match.protein_id) for match in result}
 inference = greedy_parsimony(edges)
