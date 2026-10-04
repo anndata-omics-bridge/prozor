@@ -23,7 +23,7 @@ back to pure Python. Once released on a package index, install with
 Use a mapping when all proteins are already in memory:
 
 ```python
-from prozor.matching.annotation import annotate_peptides
+from prozor.api import annotate_peptides
 
 proteins = {
     "P1": "MYPEPTIDESEQUENCE",
