@@ -11,7 +11,7 @@ help:  ## Show developer commands
 		| awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 
 sync:  ## Synchronize the locked development environment
-	uv sync --frozen --group dev --group docs
+	uv sync --group dev --group docs
 
 format:  ## Format and autofix source, tests, and benchmarks
 	$(VENV_BIN)/ruff format src tests benchmarks
@@ -36,17 +36,16 @@ test:  ## Run tests with branch coverage
 	$(VENV_BIN)/pytest --cov --cov-branch
 
 docs:  ## Build documentation and fail on warnings
-	uv run --frozen --group docs zensical build --clean --strict
+	uv run --group docs zensical build --clean --strict
 
 docs-serve:  ## Serve documentation with live reload
-	SERVE_PORT=$(DOCS_PORT) $(SERVE_ON_PORT) uv run --frozen --group docs zensical serve -a localhost:$(DOCS_PORT)
+	SERVE_PORT=$(DOCS_PORT) $(SERVE_ON_PORT) uv run --group docs zensical serve -a localhost:$(DOCS_PORT)
 
 build:  ## Build and validate source and wheel distributions
 	uv build
 	$(VENV_BIN)/twine check dist/*
 
 check:  ## Run every merge-blocking quality gate
-	uv lock --check
 	$(MAKE) format-check lint typecheck deps imports test docs build
 
 clean:  ## Remove generated build and quality artifacts

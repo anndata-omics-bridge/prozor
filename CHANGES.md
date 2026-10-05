@@ -1,5 +1,7 @@
 # Changes
 
+- 2026-10-05: `uv.lock` is no longer committed: `make sync` and CI resolve the environment from `pyproject.toml`, `make check` drops `uv lock --check`, CI caches by `pyproject.toml`, and the dev group pins `ruff==0.16.10` and `pyright==1.1.414` so lint and type results stay stable.
+
 - 2026-10-05: Carpet Scan is gone: the `dev` group no longer installs `carpet-scan`, and `make carpets` is removed. Carpet Scan moved to a personal experimental repository.
 
 - 2026-10-05: README shows the Zenodo DOI badge, linking the concept DOI that resolves to the latest archived release, and the PyPI version badge.

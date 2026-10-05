@@ -9,7 +9,6 @@ on:
       - "mkdocs.yml"
       - "pyproject.toml"
       - "src/**"
-      - "uv.lock"
   pull_request:
     paths:
       - ".github/workflows/docs.yml"
@@ -17,7 +16,6 @@ on:
       - "mkdocs.yml"
       - "pyproject.toml"
       - "src/**"
-      - "uv.lock"
   workflow_dispatch:
 
 permissions:
@@ -44,12 +42,13 @@ jobs:
         with:
           version: "0.9.8"
           enable-cache: true
+          cache-dependency-glob: "**/pyproject.toml"
 
       - name: Synchronize documentation environment
-        run: uv sync --frozen --group docs
+        run: uv sync --group docs
 
       - name: Build documentation
-        run: uv run --frozen --group docs zensical build --clean --strict
+        run: uv run --group docs zensical build --clean --strict
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

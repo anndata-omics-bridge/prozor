@@ -24,7 +24,7 @@ make check        # every merge-blocking gate
 
 All Python commands use `.venv/bin`. Runtime dependencies, development tools,
 and documentation tools must remain in their corresponding `pyproject.toml`
-sections, and `uv.lock` must be updated with dependency changes.
+sections; the repository commits no `uv.lock`.
 
 ## Code expectations
 
