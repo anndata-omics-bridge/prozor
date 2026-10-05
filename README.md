@@ -3,6 +3,7 @@
 [![Quality](https://github.com/anndata-omics-bridge/prozor/actions/workflows/quality.yml/badge.svg)](https://github.com/anndata-omics-bridge/prozor/actions/workflows/quality.yml)
 [![Documentation](https://github.com/anndata-omics-bridge/prozor/actions/workflows/docs.yml/badge.svg)](https://anndata-omics-bridge.github.io/prozor/)
 [![Python](https://img.shields.io/badge/Python-%E2%89%A53.12-3776AB.svg)](https://www.python.org/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23151449.svg)](https://doi.org/10.5281/zenodo.23151449)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT.html)
 
 Typed peptide-to-protein matching and deterministic greedy-parsimony protein
