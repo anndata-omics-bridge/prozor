@@ -4,7 +4,6 @@
 .ruff_cache/
 __pycache__/
 build/
-.carpet/
 dist/
 site/
 *.egg-info/
