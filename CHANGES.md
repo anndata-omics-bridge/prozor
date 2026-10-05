@@ -1,5 +1,7 @@
 # Changes
 
+- 2026-10-05: 0.1.1: new `CITATION.cff` with the author's ORCID, so the Zenodo archive of each GitHub release carries complete citation metadata and a DOI.
+
 - 2026-10-04: PyPI release setup: `.github/workflows/publish.yml` builds and checks the distributions, then publishes to PyPI through trusted publishing for a published GitHub release tagged `v<version>`; a manual run only builds and checks. README installs from PyPI instead of GitHub, and `pyproject.toml` adds keywords, classifiers and the documentation URL.
 
 - 2026-10-04: `prozor.api` is the module other anndata_bridge packages import: `annotate_peptides`, `annotate_peptides_streaming`, `ProteinSequenceRecord`, `greedy_parsimony`, `TieCandidate`, `resolve_backend`. `greedy_parsimony` drops its `*` marker; every call that worked before still works.
