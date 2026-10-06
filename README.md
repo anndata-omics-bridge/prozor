@@ -22,8 +22,6 @@ or consumer CLIs.
 **[Getting started](https://anndata-omics-bridge.github.io/prozor/getting-started/)** ·
 **[API reference](https://anndata-omics-bridge.github.io/prozor/api/)**
 
-Documentation: <https://anndata-omics-bridge.github.io/prozor/>
-
 ## Installation
 
 ```bash
