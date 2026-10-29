@@ -6,17 +6,13 @@ Prozor supports Python 3.12 and newer.
 
 ## Installation
 
-Until the first package-index release, install directly from GitHub:
+Install from PyPI:
 
 ```bash
-python -m pip install "prozor @ git+https://github.com/anndata-omics-bridge/prozor.git"
+python -m pip install prozor
 ```
 
-Both the accelerated `ahocorasick_rs` implementation and the portable
-`ahocorapy` fallback are installed. Public matching operations default to
-`backend="auto"`: Rust is selected when importable, otherwise matching falls
-back to pure Python. Once released on a package index, install with
-`pip install prozor`.
+Both the accelerated `ahocorasick_rs` implementation and the portable `ahocorapy` fallback are installed. Public matching operations default to `backend="auto"`: Rust is selected when importable, otherwise matching falls back to pure Python.
 
 ## Match peptides against proteins
 

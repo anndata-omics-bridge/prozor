@@ -3,6 +3,13 @@
 Public objects are documented from their typed source and Google-style
 docstrings.
 
+## Package API
+
+::: prozor.api
+    options:
+      filters:
+        - "!^_"
+
 ## Aho--Corasick matching
 
 ::: prozor.matching.automaton

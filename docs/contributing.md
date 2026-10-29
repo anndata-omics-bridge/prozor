@@ -17,7 +17,7 @@ make lint         # Ruff checks
 make typecheck    # standard Pyright strict
 make imports      # directed matching/inference boundary
 make test         # pytest with branch coverage
-make docs         # strict MkDocs build
+make docs         # strict Zensical build
 make build        # wheel/sdist plus metadata validation
 make check        # every merge-blocking gate
 ```

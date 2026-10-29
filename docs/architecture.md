@@ -13,6 +13,7 @@ consumer application
   ├── decoy/contaminant classification
   ├── persistence and provenance
   └── prozor
+       ├── api.py
        ├── matching/
        │    ├── automaton.py
        │    └── annotation.py
@@ -34,13 +35,13 @@ matching or inference algorithms.
 
 | Module | Responsibility |
 | --- | --- |
+| `prozor.api` | Re-exports the public objects other packages import. |
 | `prozor.matching.automaton` | Backend selection and exact multi-pattern matching. |
 | `prozor.matching.annotation` | Peptide occurrences over mappings or streaming records. |
 | `prozor.inference.ties` | Consequential tie value and default resolution operation. |
 | `prozor.inference.greedy` | Edge-based deterministic greedy-parsimony inference. |
 
-The root `__init__.py` remains empty. Public objects are imported from their
-defining modules so ownership stays explicit.
+The root `__init__.py` remains empty. Other packages import public objects only from `prozor.api`, which re-exports them; inside Prozor, objects are imported from their defining modules so ownership stays explicit.
 
 ## Reproducibility guarantees
 
@@ -83,6 +84,6 @@ the smallest appropriate places:
 ## Provenance
 
 The Python implementation is derived from the behavior of Witold Wolski's R
-[`prozor`](https://github.com/wolski/prozor) package. A fixed fixture generated
+[`prozor`](https://github.com/protViz/prozor) package. A fixed fixture generated
 from the R 0.3.4 source guards equivalent protein-group membership; the Python
 implementation canonicalizes group identifier ordering.

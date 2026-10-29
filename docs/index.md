@@ -57,6 +57,6 @@ print(protein_groups.to_dict())
 ## Project status
 
 The Python package is derived from the algorithmic behavior of the R
-[`prozor`](https://github.com/wolski/prozor) reference package. The matching and
+[`prozor`](https://github.com/protViz/prozor) reference package. The matching and
 inference core is covered by pure-Python/Rust backend-equivalence tests, strict
 Pyright, Ruff, branch coverage, dependency validation, and distribution builds.
