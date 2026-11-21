@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 type: software
 title: "prozor"
 abstract: "Typed peptide-to-protein matching and parsimonious protein inference."
-version: 0.1.1
+version: 0.1.2
 license: MIT
 repository-code: "https://github.com/anndata-omics-bridge/prozor"
 authors:
